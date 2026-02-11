@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For Pooja, My Pooh Bear</title>
+    <meta
+      name="description"
+      content="A little Valentine surprise for Pooja, also known as Pooh Bear."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="paper-noise" aria-hidden="true"></div>
+
+    <main class="app" id="app-root">
+      <section id="intro-section" class="panel panel-intro" aria-labelledby="intro-title">
+        <p class="label">A Tiny Note For You</p>
+        <h1 id="intro-title" class="display-title">To Pooja, my Pooh Bear</h1>
+        <div id="intro-lines" class="intro-lines" aria-live="polite"></div>
+      </section>
+
+      <section
+        id="question-section"
+        class="panel panel-question"
+        aria-labelledby="question-title"
+      >
+        <h2 id="question-title" class="question-title">Will you be my Valentine, Pooh Bear?</h2>
+        <p id="question-subtext" class="question-subtext">Please say yes before my heart explodes.</p>
+
+        <div class="cta-row" id="cta-row">
+          <button type="button" id="yes-btn" class="btn btn-yes">Yes, always</button>
+          <button type="button" id="no-btn" class="btn btn-no">No</button>
+        </div>
+
+        <button type="button" id="music-toggle" class="music-btn" aria-pressed="false">
+          Play song
+        </button>
+        <p id="audio-status" class="audio-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section
+        id="celebration-section"
+        class="panel panel-celebration"
+        aria-labelledby="celebration-title"
+        hidden
+      >
+        <div class="heart-burst" aria-hidden="true">
+          <span>❤</span><span>❤</span><span>❤</span><span>❤</span><span>❤</span>
+        </div>
+        <h2 id="celebration-title" class="celebration-title">She said yes!</h2>
+        <p id="final-message" class="final-message"></p>
+
+        <article id="details-card" class="details-card" aria-label="Valentine plan details">
+          <h3>Our Valentine Date</h3>
+          <p><strong>Date:</strong> <span id="date-value"></span></p>
+          <p><strong>Time:</strong> <span id="time-value"></span></p>
+          <p><strong>Place:</strong> <span id="location-value"></span></p>
+        </article>
+
+        <div id="gallery" class="gallery" aria-label="Memories gallery"></div>
+      </section>
+
+      <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+    </main>
+
+    <audio id="bg-audio" preload="metadata"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
