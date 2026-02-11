@@ -3,14 +3,14 @@ const APP_CONFIG = {
   nickname: "Pooh Bear",
   eventDate: "2026-02-14",
   eventTime: "10:00 AM",
-  eventLocation: "Your Favourite Chill Spot",
+  eventLocation: "Anywhere with you is perfect (but let's start it at Ya Kun!)",
   introLines: [
-    "You make ordinary days feel like celebration days.",
+    "You make my world softer and make feel special without even trying.",
     "I made you this tiny corner of the internet because you deserve sweet surprises.",
-    "Can I officially steal you for Valentine's Day?"
+    "Can I officially steal you for Valentine’s Day, Pooju Ma?"
   ],
   finalMessage:
-    "My cutie Pooh Bear, thank you for saying yes. I cannot wait to make this date adorable, cozy, and full of us.",
+    "My love, thank you for saying yes. I cannot wait to make this date adorable, cozy, and full of us.",
   imagePaths: [
     "assets/images/6082483554924301689.jpg",
     "assets/images/6082483554924301690.jpg",
@@ -57,12 +57,12 @@ const confettiCanvas = document.querySelector("#confetti-canvas");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const noMessages = [
-  "Nope... that button is shy today.",
+  "Nope... that button romba shy today.",
   "Pooh Bear, I think your heart meant yes.",
-  "That No is just practicing cardio.",
+  "That No is doing more cardio than us.",
   "You're too cute to reject me.",
   "Try again. The universe ships us.",
-  "Still dodging. Very dramatic.",
+  "Still dodging. Low-key dramatic.",
   "That button has commitment issues.",
   "Okay okay... only yes works."
 ];
