@@ -5,7 +5,7 @@ const APP_CONFIG = {
   eventTime: "10:00 AM",
   eventLocation: "Anywhere with you is perfect (but let's start it at Ya Kun!)",
   introLines: [
-    "You make my world softer and make feel special without even trying.",
+    "You make my world softer and make me feel special without even trying.",
     "I made you this tiny corner of the internet because you deserve sweet surprises.",
     "Can I officially steal you for Valentine’s Day, Pooju Ma?"
   ],
