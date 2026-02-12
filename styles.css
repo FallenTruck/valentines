@@ -231,6 +231,7 @@ body {
   gap: 10px;
   overflow-x: auto;
   overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   padding: 2px 2px 8px;
   scroll-behavior: smooth;
   scrollbar-width: thin;

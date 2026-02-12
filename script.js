@@ -74,6 +74,7 @@ let audioLoaded = false;
 let galleryPanFrame = null;
 let galleryPanPaused = false;
 let galleryPanControlsBound = false;
+let galleryPanRestartTimer = null;
 
 function setTitleAndQuestion() {
   document.title = `For ${APP_CONFIG.recipientName}, My ${APP_CONFIG.nickname}`;
@@ -189,6 +190,7 @@ function bindGalleryPanControls() {
   gallery.addEventListener("focusout", resume);
   gallery.addEventListener("touchstart", pause, { passive: true });
   gallery.addEventListener("touchend", resume, { passive: true });
+  gallery.addEventListener("touchcancel", resume, { passive: true });
   galleryPanControlsBound = true;
 }
 
@@ -196,6 +198,10 @@ function startGalleryPan() {
   stopGalleryPan();
 
   if (reduceMotion) {
+    return;
+  }
+
+  if (gallery.hidden) {
     return;
   }
 
@@ -229,11 +235,35 @@ function startGalleryPan() {
   galleryPanFrame = requestAnimationFrame(tick);
 }
 
+function scheduleGalleryPanRestart() {
+  if (galleryPanRestartTimer) {
+    clearTimeout(galleryPanRestartTimer);
+    galleryPanRestartTimer = null;
+  }
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      startGalleryPan();
+    });
+  });
+
+  galleryPanRestartTimer = setTimeout(() => {
+    startGalleryPan();
+    galleryPanRestartTimer = null;
+  }, 250);
+}
+
 function initAudio() {
   audio.src = APP_CONFIG.audioPath;
   audio.loop = true;
+  audio.preload = "auto";
+  audio.load();
 
   audio.addEventListener("canplay", () => {
+    audioLoaded = true;
+  });
+
+  audio.addEventListener("loadeddata", () => {
     audioLoaded = true;
   });
 
@@ -246,19 +276,20 @@ function initAudio() {
 }
 
 async function toggleMusic() {
-  if (!audioLoaded) {
-    audioStatus.textContent = "Song is still loading or missing.";
+  if (musicToggle.disabled) {
+    audioStatus.textContent = "Song is unavailable.";
     return;
   }
 
   if (audio.paused) {
     try {
       await audio.play();
+      audioLoaded = true;
       musicToggle.textContent = "Pause song";
       musicToggle.setAttribute("aria-pressed", "true");
       audioStatus.textContent = "Playing your song.";
     } catch (_err) {
-      audioStatus.textContent = "Tap Play again if your browser blocked autoplay.";
+      audioStatus.textContent = "Still loading on this device. Tap Play song again in a second.";
     }
   } else {
     audio.pause();
@@ -269,8 +300,8 @@ async function toggleMusic() {
 }
 
 async function tryAutoplayAfterYes() {
-  if (!audioLoaded || musicToggle.disabled) {
-    audioStatus.textContent = "Song is still loading or missing.";
+  if (musicToggle.disabled) {
+    audioStatus.textContent = "Song is unavailable.";
     return;
   }
 
@@ -280,6 +311,7 @@ async function tryAutoplayAfterYes() {
 
   try {
     await audio.play();
+    audioLoaded = true;
     musicToggle.textContent = "Pause song";
     musicToggle.setAttribute("aria-pressed", "true");
     audioStatus.textContent = "Playing your song.";
@@ -390,7 +422,7 @@ function showCelebration() {
   celebrationSection.hidden = false;
   celebrationSection.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
   spawnConfetti();
-  startGalleryPan();
+  scheduleGalleryPanRestart();
 }
 
 function initialize() {
@@ -415,7 +447,7 @@ function initialize() {
       setupConfettiCanvas();
     }
 
-    startGalleryPan();
+    scheduleGalleryPanRestart();
   });
 }
 
