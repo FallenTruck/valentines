@@ -197,10 +197,6 @@ function bindGalleryPanControls() {
 function startGalleryPan() {
   stopGalleryPan();
 
-  if (reduceMotion) {
-    return;
-  }
-
   if (gallery.hidden) {
     return;
   }
@@ -210,7 +206,7 @@ function startGalleryPan() {
     return;
   }
 
-  const speed = 1.2;
+  const speed = reduceMotion ? 0.45 : 1.2;
   let direction = 1;
 
   function tick() {
